@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -146,3 +148,16 @@ LOGIN_URL = '/login/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CELERY_TIME_ZONE = TIME_ZONE
+
+CELERY_BEAT_SCHEDULE = {
+    'send_new_groups': {
+        'task': 'groups.tasks.send_new_groups',
+        'schedule': crontab(minute=0, hour=12)
+    }
+}
+
+

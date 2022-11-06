@@ -8,7 +8,6 @@ from django.views.generic import TemplateView
 from groups.models import Student , Group , Teacher , Category , Tag 
 from groups.forms import CreateCourseForm , CreateStudentForm , LoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.urls import reverse_lazy
 from django.db.models import Q, F
 from django.views.generic import TemplateView, ListView ,RedirectView, FormView , CreateView, UpdateView 
@@ -72,8 +71,10 @@ class CreateCourse(FormView):
     form_class = CreateCourseForm
     success_url = "/"
 
+
     def form_valid(self, form):
         form.save()
+        form.send_email()
         return super(CreateCourse, self).form_valid(form)
 
 

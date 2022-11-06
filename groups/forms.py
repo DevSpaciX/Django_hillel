@@ -4,13 +4,16 @@ from tkinter.ttk import Widget
 from xml.dom import ValidationErr
 from django import forms
 from django.contrib.auth.models import User
-
+from groups.tasks import send_emails
 from groups.models import Category, Tag ,Group,Teacher,Student
 
 class CreateCourseForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = "__all__"
+
+    def send_email(self):
+        send_emails.delay(self.cleaned_data['name'])
 
 class CreateStudentForm(forms.ModelForm):
     class Meta:
