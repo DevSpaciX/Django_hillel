@@ -7,5 +7,3 @@ admin.site.register(models.Teacher)
 admin.site.register(models.Student)
 admin.site.register(models.Category)
 admin.site.register(models.Tag)
-
-

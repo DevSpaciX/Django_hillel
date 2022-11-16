@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('groups', '0006_rename_tags_tag'),
+        ("groups", "0006_rename_tags_tag"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='tag',
-            name='tags',
+            model_name="tag",
+            name="tags",
         ),
         migrations.AddField(
-            model_name='group',
-            name='tags',
-            field=models.ManyToManyField(to='groups.tag'),
+            model_name="group",
+            name="tags",
+            field=models.ManyToManyField(to="groups.tag"),
         ),
     ]

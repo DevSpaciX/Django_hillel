@@ -7,18 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('groups', '0011_alter_student_age_alter_student_name'),
+        ("groups", "0011_alter_student_age_alter_student_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='group',
-            name='name',
+            model_name="group",
+            name="name",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='age',
-            field=models.PositiveIntegerField(default=0, null=True, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)]),
+            model_name="student",
+            name="age",
+            field=models.PositiveIntegerField(
+                default=0,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(100),
+                ],
+            ),
         ),
     ]
