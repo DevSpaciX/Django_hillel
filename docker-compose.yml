@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  web:
+    build:
+      dockerfile : Dockerfile
+    command: 'bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"'
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/mysite
+    restart: on-failure
+    depends_on:
+      - db
+  celery:
+    build:
+      dockerfile: Dockerfile
+    command: 'celery -A Django worker -l INFO -B'
+    env_file:
+      - .env
+    volumes:
+      - ./:/mysite
+    restart: on-failure
+    depends_on:
+      - rabbit
+  rabbit:
+    image: rabbitmq
+  db:
+    image: mysql:5.7
+    restart: on-failure
+    env_file:
+      - .env
+#    environment:
+#        MYSQL_DATABASE: 'mysql_database'
+#        MYSQL_ROOT_PASSWORD: ''
+    volumes:
+      - ./base/mysql/db:/var/lib/mysql
