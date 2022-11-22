@@ -175,7 +175,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'generate_token': {
         'task': 'groups.tasks.generate_token',
-        'schedule': crontab()
+        'schedule': crontab(minute=0, hour=0)
     }
 }
 REST_FRAMEWORK = {
