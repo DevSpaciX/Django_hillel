@@ -16,9 +16,10 @@
             <a href="#">#{{ tag.name }}</a>
                 {% if not forloop.last %}, {% endif %}
             {% endfor %}
+            <p>
+                <a href="#" class="btn btn-success">Записаться </a>
+                <a href="{% url 'course:edit' group_id=group.id %}" class="btn btn-info">Изменить</a>
             </p>
-            <a href="#" class="btn btn-success">Записаться </a>
-            <a href="{% url 'course:edit' group_id=group.id %}" class="btn btn-info">Изменить</a>
           </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - ./:/mysite
-    restart: on-failure
+    restart: always
     depends_on:
       - db
   celery:
@@ -22,18 +22,15 @@ services:
       - .env
     volumes:
       - ./:/mysite
-    restart: on-failure
+    restart: always
     depends_on:
       - rabbit
   rabbit:
     image: rabbitmq
   db:
     image: mysql:5.7
-    restart: on-failure
+    restart: always
     env_file:
       - .env
-#    environment:
-#        MYSQL_DATABASE: 'mysql_database'
-#        MYSQL_ROOT_PASSWORD: ''
     volumes:
-      - ./base/mysql/db:/var/lib/mysql
+      - ./data_base/mysql/db:/var/lib/mysql

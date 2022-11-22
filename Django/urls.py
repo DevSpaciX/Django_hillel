@@ -33,8 +33,7 @@ urlpatterns = [
     path('edit/<int:student_id>/student/',views.EditUser.as_view(),name="edit_student"),
 
     path('',include(('groups.urls' , 'groups'),namespace='course')),
-    
-
+    path("api/v1/", include(("api.urls", "api"), namespace="api")),
 
     path('__debug__/', include('debug_toolbar.urls')),
 

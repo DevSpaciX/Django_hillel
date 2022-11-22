@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-
+import socket
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,8 +41,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "groups",
+    "api",
+
     "debug_toolbar",
     "bootstrap4",
+    'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -144,7 +148,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     "0.0.0.0",
 ]
-import socket
+
 
 # tricks to have debug toolbar when developing with docker
 ip = socket.gethostbyname(socket.gethostname())
@@ -167,8 +171,19 @@ CELERY_BROKER_URL = 'amqp://rabbit'
 CELERY_BEAT_SCHEDULE = {
     'send_new_groups': {
         'task': 'groups.tasks.send_new_groups',
-        'schedule': crontab(minute=0, hour=12)
+        'schedule': crontab(minute=1)
+    },
+    'generate_token': {
+        'task': 'groups.tasks.generate_token',
+        'schedule': crontab()
     }
 }
-
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 

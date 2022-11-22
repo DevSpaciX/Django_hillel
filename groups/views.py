@@ -1,10 +1,5 @@
-from calendar import c
-from multiprocessing import context
-from unicodedata import category
 from django.contrib.auth import login
-
-from django.views.generic import TemplateView
-from groups.models import Student, Group, Teacher, Category, Tag
+from groups.models import Student, Group
 from groups.forms import CreateCourseForm, CreateStudentForm, LoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -12,7 +7,6 @@ from django.db.models import Q, F
 from django.views.generic import (
     TemplateView,
     ListView,
-    RedirectView,
     FormView,
     CreateView,
     UpdateView,

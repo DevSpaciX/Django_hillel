@@ -15,15 +15,13 @@
                   <h6 class="card-title">Email : {{person.email}}</h6>
                   <p class="card-text">{{person.name}} - {{person.surname}}, сейчас находится в группе {{person.group}}</p>
                 </div>
-              <a href="{% url 'edit_student' student_id=person.id %}" class="btn btn-success" style="padding: bottom 10px;">Изменить</a>
+              <a href="{% url 'edit_student' student_id=person.id %}" class="btn btn-success">Изменить</a>
             </div>
           </div>
       </div>
       {% endfor %}
   </div>
   {% include 'includes/paginator.html' %}
-  <!-- <div class="pagination">
-      <span class="step-links">
           {% if page_obj.has_previous %}
               <a href="?page=1">&laquo; first</a>
               <a href="?page={{ page_obj.previous_page_number }}">previous</a>
@@ -35,6 +33,6 @@
               <a href="?page={{ page_obj.next_page_number }}">next</a>
               <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
           {% endif %}
-      </span>
-  </div> -->
+
+  </div>
 {% endblock content %}

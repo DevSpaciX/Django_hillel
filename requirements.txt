@@ -35,5 +35,5 @@ sqlparse==0.4.3
 urllib3==1.26.12
 validate-pyproject==0.10.1
 mysqlclient
-
+djangorestframework==3.14.0
 

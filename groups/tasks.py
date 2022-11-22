@@ -1,7 +1,8 @@
 from django.core.mail import send_mail
 from Django.celery import app
 from groups.models import Group, Student
-
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 @app.task
 def send_emails(data):
@@ -32,3 +33,13 @@ def send_new_groups():
             message=message,
             recipient_list=[email],
         )
+
+
+@app.task
+def generate_token():
+    for user in User.objects.all():
+        if user is not None:
+            Token.objects.filter(user=user).delete()
+            Token.objects.create(user=user)
+        else:
+            Token.objects.get_or_create(user=user)
