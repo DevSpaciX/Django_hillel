@@ -21,20 +21,23 @@ from django.conf import settings
 from groups import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.IndexView.as_view(),name="home"),
-    path("search/", views.SearchView.as_view(), name='search'),
-    path("category/<int:categories_id>/", views.GroupByCategory.as_view(), name='category'),
-    path('create/student/',views.CreateStudent.as_view(),name="create_student"),
-    path('students/', views.StudentList.as_view(),name="students"),
-    path('profile/', views.ProfileView.as_view(),name="profile"),
-    path("login/", LoginView.as_view(template_name='login.html'), name='login'),
-    path("logout/", LogoutView.as_view(), name='logout'),
-    path('edit/<int:student_id>/student/',views.EditUser.as_view(),name="edit_student"),
-
-    path('',include(('groups.urls' , 'groups'),namespace='course')),
+    path("admin/", admin.site.urls),
+    path("", views.IndexView.as_view(), name="home"),
+    path("search/", views.SearchView.as_view(), name="search"),
+    path(
+        "category/<int:categories_id>/",
+        views.GroupByCategory.as_view(),
+        name="category",
+    ),
+    path("create/student/", views.CreateStudent.as_view(), name="create_student"),
+    path("students/", views.StudentList.as_view(), name="students"),
+    path("profile/", views.ProfileView.as_view(), name="profile"),
+    path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path(
+        "edit/<int:student_id>/student/", views.EditUser.as_view(), name="edit_student"
+    ),
+    path("", include(("groups.urls", "groups"), namespace="course")),
     path("api/v1/", include(("api.urls", "api"), namespace="api")),
-
-    path('__debug__/', include('debug_toolbar.urls')),
-
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("__debug__/", include("debug_toolbar.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

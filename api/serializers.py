@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from groups.models import Group , Teacher , Student
+from groups.models import Group, Teacher, Student
 
 
 class NameAndId(serializers.Serializer):
@@ -12,7 +12,7 @@ class GroupSerializer(serializers.ModelSerializer):
     categories_id = serializers.IntegerField(write_only=True)
     mentor = NameAndId(read_only=True)
     mentor_id = serializers.IntegerField(write_only=True)
-    tags = NameAndId(many=True,read_only=True)
+    tags = NameAndId(many=True, read_only=True)
 
     class Meta:
         model = Group
@@ -20,7 +20,6 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Teacher
         fields = "__all__"

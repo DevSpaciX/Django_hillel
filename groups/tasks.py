@@ -4,6 +4,7 @@ from groups.models import Group, Student
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
+
 @app.task
 def send_emails(data):
     emails = Student.objects.all().values_list("email", flat=True)

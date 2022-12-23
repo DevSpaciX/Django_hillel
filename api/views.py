@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.serializers import GroupSerializer , TeacherSerializer , StudentSerializer
-from groups.models import Group , Teacher , Student
+from api.serializers import GroupSerializer, TeacherSerializer, StudentSerializer
+from groups.models import Group, Teacher, Student
 
 
 class GroupListView(ModelViewSet):
@@ -19,6 +19,7 @@ class TeacherListView(ModelViewSet):
 
     def get_queryset(self):
         return Teacher.objects.get_queryset()
+
 
 class StudentListView(ModelViewSet):
     serializer_class = StudentSerializer

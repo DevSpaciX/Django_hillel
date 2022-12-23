@@ -1,4 +1,7 @@
 from django.contrib.auth import login
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 from groups.models import Student, Group
 from groups.forms import CreateCourseForm, CreateStudentForm, LoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,8 +16,9 @@ from django.views.generic import (
 )
 
 
+@method_decorator(cache_page(60, key_prefix="base"),'get')
 class IndexView(ListView):
-    template_name = "index.html"
+    template_name = "base.html"
     model = Group
     paginate_by = 8
 
@@ -47,6 +51,7 @@ class SearchView(IndexView):
         return super(SearchView, self).get_queryset()
 
 
+@method_decorator(cache_page(50, key_prefix="students"),'get')
 class StudentList(ListView):
     template_name = "student_list.html"
     model = Student
@@ -95,6 +100,7 @@ class EditUser(UpdateView):
     pk_url_kwarg = "student_id"
 
 
+@method_decorator(cache_page(1337, key_prefix="login"),'get')
 class LoginView(FormView):
     template_name = "login.html"
     form_class = LoginForm
